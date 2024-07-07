@@ -1,0 +1,199 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 19.36px;
+  --line-height-m:  24.2px;
+  --line-height-l:  29.05px;
+  font-weight: 400;
+  font-size: 16px;
+  --font-size-l: 20px;
+
+  --header-color: #FFFFFF;
+  --header-color-focus: #FFF852;
+  --body-color: #000000;
+  --footer-color: #FFFFFF;
+  --button-color: #FFFFFF;
+  --button-color-focus: #000000;
+
+  --header-background-color: #2C2C2C;
+  --body-background-color: #F1F1F1;
+  --button-background-color-focus: #FFF852;
+  --button-background-color: #000000;
+  --footer-background-color: #000000;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 70px;
+}
+
+header {
+  background-color: var(--header-background-color);
+  
+  padding: 1rem;
+  text-align: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.mainProposals{
+  margin-left: 70px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: var(--header-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover{
+  color: var(--header-color-focus);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.icons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.icons a {
+  margin-left: 1rem;
+}
+
+.icons img {
+  height: 24px;
+  width: 24px;
+}
+
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  width: 200px;
+  height: 350px;
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product h2 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.product p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.product button {
+  padding: 0.5rem 1rem;
+  background-color: var(--button-background-color);
+  color: var(--button-color);
+  border: none;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.product button:hover {
+  background-color: var(--button-background-color-focus);
+  color:var(--button-color-focus);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+footer {
+  background-color: var(--footer-background-color);
+  color: var(--footer-color);
+  text-align: center;
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
