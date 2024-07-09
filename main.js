@@ -19,40 +19,47 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 15, name: 'Air Max SC', brand: 'Nike Original', price: 160, image: '/assets/airmaxscgrey.png' },
       { id: 16, name: 'Handball Spezial', brand: 'Adidas Original', price: 140, image: '/assets/handballspezialred.png' },
   ];
+  const mainElement = document.getElementById('mainElement');
+  const divImageMainElement = document.createElement('div');
+  divImageMainElement.id='divImageMainElement';
+  const imageMainElement = document.createElement('img');
+  imageMainElement.src='./assets/main-cover.jpeg';
+  imageMainElement.alt='';
+  imageMainElement.id='imageMainElement';
+  divImageMainElement.appendChild(imageMainElement);
+  mainElement.prepend(divImageMainElement);
 
   const productsContainer = document.getElementById('productsContainer');
-  
   const filterButton = document.getElementById('filterButton');
+  const imageFilterButton = document.createElement('img');
+  imageFilterButton.src='./assets/vectorDown.png';
+  imageFilterButton.alt=''
+  filterButton.innerHTML = '';  // Limpiar el texto del botón si es necesario
+  filterButton.appendChild(imageFilterButton); 
   
- 
-
-  console.log(filterButton)
   // Crear y agregar el modal de filtros
+  const filterButtonDiv = document.getElementById('filterButtonDiv')
   const filterModal = document.createElement('div');
   filterModal.id = 'filterModal';
   filterModal.className = 'modal';
   filterModal.innerHTML = `
-      <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Filtros</h2>
+      <div class="filterFormContainer">
           <form id="filterForm">
-              <label for="brandFilter">Marca:</label>
-              <select id="brandFilter" name="brand">
-                  <option value="all">Todas</option>
+              <select id="brandFilter" name="brand" class="filter">
+                  <option value="all">All brands</option>
                   <option value="Nike Original">Nike Original</option>
                   <option value="Adidas Original">Adidas Original</option>
                   <option value="New Balance">New Balance</option>
               </select>
-              <label for="priceFilter">Precio máximo:</label>
-              <input type="number" id="priceFilter" name="price" min="0">
-              <button type="button" id="applyFilters">Aplicar Filtros</button>
-              <button type="button" id="clearFilters">Limpiar Filtros</button>
+              <input type="number" id="priceFilter" min=0 class="filter">
+              <button type="button" id="applyFilters" class="filter innerButtonFilter">Filtrar</button>
+              <button type="button" id="clearFilters" class="filter innerButtonFilter">Limpiar</button>
           </form>
       </div>
   `;
-  document.body.appendChild(filterModal);
+  filterButtonDiv.prepend(filterModal);
+  filterModal.style.display = 'none';
 
-  const closeModal = document.getElementsByClassName('close')[0];
   const applyFiltersButton = document.getElementById('applyFilters');
   const clearFiltersButton = document.getElementById('clearFilters');
   const brandFilter = document.getElementById('brandFilter');
@@ -109,29 +116,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Función para mostrar productos sugeridos
   function renderSuggestedProducts() {
       productsContainer.innerHTML = '<p>No se encontraron productos con los filtros aplicados. Productos sugeridos:</p>';
-      const suggestedProducts = products.sort(() => 0.5 - Math.random()).slice(0, 5);
+      const suggestedProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
       renderProducts(suggestedProducts);
   }
 
-  // Eventos para mostrar/ocultar el modal
-  filterButton.onclick = () => {
-    filterModal.style.display = 'block';
-  };
-
-  closeModal.onclick = () => {
-    filterModal.style.display = 'none';
-  };
-
-  window.onclick = (event) => {
-      if (event.target === filterModal) {
-          filterModal.style.display = 'none';
-      }
-  };
+  filterButton.addEventListener('click', function() {
+    // Alternar la visibilidad del contenedor de productos
+    if (filterModal.style.display === 'none') {
+        filterModal.style.display = 'block';
+        imageFilterButton.src='./assets/vectorUp.png';
+    } else {
+        filterModal.style.display = 'none';
+        imageFilterButton.src='./assets/vectorDown.png';
+    }
+  });
 
   // Eventos para aplicar y limpiar filtros
   applyFiltersButton.onclick = () => {
       applyFilters();
-      filterModal.style.display = 'none';
   };
 
   clearFiltersButton.onclick = () => {
