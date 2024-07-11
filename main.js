@@ -75,9 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="image-container">
                 <img src="${product.image}" alt="${product.name}">
               </div>
-              <h2>${product.name}</h2>
-              <p>${product.brand}</p>
-              <p>${product.price} €</p>
+              <p id="cardBrandText">${product.brand}</p>
+              <div id="detailsCard">
+                <p>${product.name}</p>
+                <p>${product.price} €</p>
+              </div>
               <button>Comprar</button>
           `;
           productsContainer.appendChild(productElement);
