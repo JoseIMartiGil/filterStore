@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <p id="cardBrandText">${product.brand}</p>
               <div id="detailsCard">
                 <p>${product.name}</p>
-                <p>${product.price} €</p>
+                <p>${product.price.toFixed(2)} €</p>
               </div>
               <button>Comprar</button>
           `;

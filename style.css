@@ -30,7 +30,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  margin-bottom: 200px;
 }
 
 header {
@@ -105,6 +104,7 @@ nav ul li a {
 
 nav ul li a:hover{
   color: var(--header-color-focus);
+  border-bottom: 1px solid  var(--header-color-focus);
 }
 
 .nav-container {
@@ -129,19 +129,19 @@ nav ul li a:hover{
 
 #divImageMainElement{
   width: 100%;  /* o el ancho que necesites */
-    height: 250px;  /* o la altura que necesites para la franja */
-    overflow: hidden;  /* oculta las partes de la imagen que sobresalgan del contenedor */
-    position: relative;  /* posición relativa para posicionar la imagen absolutamente dentro */
-    display: flex;  /* permite usar align-items para centrar verticalmente */
-    align-items: center; 
+  height: 250px;  /* o la altura que necesites para la franja */
+  overflow: hidden;  /* oculta las partes de la imagen que sobresalgan del contenedor */
+  position: relative;  /* posición relativa para posicionar la imagen absolutamente dentro */
+  display: flex;  /* permite usar align-items para centrar verticalmente */
+  align-items: center; 
 }
 
 #imageMainElement{
   width: auto;  /* mantiene la relación de aspecto original */
-    height: auto;  /* ajusta la imagen a la altura del contenedor */
-    position: absolute;  /* posición absoluta para centrar exactamente como queremos */
-    left: 50%;  /* mueve la imagen al centro horizontalmente */
-    transform: translateX(-50%) translateY(-5%);
+  height: auto;  /* ajusta la imagen a la altura del contenedor */
+  position: absolute;  /* posición absoluta para centrar exactamente como queremos */
+  left: 50%;  /* mueve la imagen al centro horizontalmente */
+  transform: translateX(-50%) translateY(-5%);
 }
 
 #filterButtonDiv{
@@ -215,6 +215,7 @@ nav ul li a:hover{
   flex-direction: column;
   border: 1px solid var(--aux-Color);
   width: 250px;
+  min-width: 250px;
   height: 330px;
   transition: transform 0.3s;
   text-align: left;
@@ -283,26 +284,25 @@ footer {
   color: var(--footer-color);
   text-align: center;
   padding: 1rem 0;
-  position: fixed;
   width: 100%;
-  bottom: 0;
 }
 
 #footerMenu{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 #footerMenu ul{
   display: flex;
   flex: 1 1 1;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 #footerMenu ul li{
-  display: flex;
-  flex-direction: row;
+  display: block;
 }
 
 #footerMenu ul li h4{
@@ -312,10 +312,25 @@ footer {
 
 #footerMenu ul li a{
   display: block;
-  align-content: left;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 835px) {
+  #filterModal{
+    display: flex;
+    flex: 100%;
+    flex-direction: row;
+    width: auto;
+  }
+
+  .filter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+  }
   .nav-container > nav {
       position: absolute;
       top: 0;
@@ -330,7 +345,6 @@ footer {
   }
   .nav-container > nav > ul {
       display: grid;
-      gap: var(--m-spacing);
       grid-template-columns: 1fr;
       grid-template-rows: repeat(5, 1fr);
       justify-items: center;
@@ -339,9 +353,17 @@ footer {
   .menu {
       display: block;
   }
+  #footerMenu {
+    flex-direction: column;
+    align-items: center; 
+    width: 100%; 
+  }
+  #footerMenu ul{
+    width: 200px;
+  }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 836px) {
   #checkbox:checked ~ nav {
       width: auto;
       background-color: var(--header-background-color);
