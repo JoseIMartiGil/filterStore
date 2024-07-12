@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 8, name: 'Gazelle', brand: 'Adidas Original', price: 90, image: './gazelle.png' },
       { id: 9, name: 'Air Max SC', brand: 'Nike Original', price: 150, image: './airmaxsc.png' },
       { id: 10, name: 'Handball Spezial', brand: 'Adidas Original', price: 120, image: './handballspezial.png' },
-      { id: 11, name: 'Air Force', brand: 'Nike Original', price: 130, image: '.airforce.png' },
+      { id: 11, name: 'Air Force', brand: 'Nike Original', price: 130, image: './airforce.png' },
       { id: 12, name: 'NB 9060', brand: 'New Balance', price: 100, image: './nb9060red.png' },
       { id: 13, name: 'NB 480', brand: 'New Balance', price: 150, image: './nb480.png' },
       { id: 14, name: 'Full Force Low', brand: 'Nike Original', price: 70, image: './fullforcelow.png' },
