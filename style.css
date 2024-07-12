@@ -154,6 +154,7 @@ nav ul li a:hover{
 
 #filterButton {
   border: 0px;
+  background-color: var(--body-background-color);
 }
 
 #filterButton img{
