@@ -1,6 +1,36 @@
 import './style.css'
 
 document.addEventListener('DOMContentLoaded', () => {
+  const navContainer = document.querySelector('.nav-container');
+  navContainer.innerHTML = `
+    <div class="logo">
+        <img src="./logo.png" alt="JD Logo"> 
+    </div>
+    <label for="checkbox" class="menu" >
+        <img src="./hamburguerMenu.png" alt="menu"/>
+    </label>
+    <input id="checkbox" type="checkbox" />
+    <nav class="mainProposals">
+        <ul>
+            <li><a href="#">Hombre</a></li>
+            <li><a href="#">Mujer</a></li>
+            <li><a href="#">Niños</a></li>
+            <li><a href="#">Ofertas</a></li>
+        </ul>
+    </nav>
+    <div class="icons">
+        <a href="#" ><img src="./icon_filter_.png" alt="Filter"></a> 
+        <a href="#"><img src="./icon_shopping_basket_.png" alt="Cart"></a> 
+        <a href="#"><img src="./icon_user_avatar_.png" alt="Profile"></a>
+    </div>
+  `
+  const mainElement = document.querySelector('#mainElement');
+  mainElement.innerHTML = `
+    <div id="filterButtonDiv">
+        <button id="filterButton"></button>
+    </div>
+    <div id="productsContainer" class="products"></div>
+  `
   const products = [
       { id: 1, name: 'Air Max 1', brand: 'Nike Original', price: 120, image: '/airmax1.png' },
       { id: 2, name: 'NB 9060', brand: 'New Balance', price: 80, image: './nb9060.png' },
@@ -19,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 15, name: 'Air Max SC', brand: 'Nike Original', price: 160, image: './airmaxscgrey.png' },
       { id: 16, name: 'Handball Spezial', brand: 'Adidas Original', price: 140, image: './handballspezialred.png' },
   ];
-  const mainElement = document.getElementById('mainElement');
+  
   const divImageMainElement = document.createElement('div');
   divImageMainElement.id='divImageMainElement';
   const imageMainElement = document.createElement('img');
@@ -40,18 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Crear y agregar el modal de filtros
   const filterButtonDiv = document.getElementById('filterButtonDiv')
   const filterModal = document.createElement('div');
+  let divSuggestedProducts = document.querySelector('.divSuggestedProducts');
   filterModal.id = 'filterModal';
   filterModal.className = 'modal';
   filterModal.innerHTML = `
       <div class="filterFormContainer">
           <form id="filterForm">
               <select id="brandFilter" name="brand" class="filter">
-                  <option value="all">All brands</option>
+                  <option value="all">Todas las marcas</option>
                   <option value="Nike Original">Nike Original</option>
                   <option value="Adidas Original">Adidas Original</option>
                   <option value="New Balance">New Balance</option>
               </select>
-              <input type="number" id="priceFilter" min=0 class="filter">
+              <input type="number" id="priceFilter" placeholder="Precio Máximo" min=0 class="filter">
               <button type="button" id="applyFilters" class="filter innerButtonFilter">Filtrar</button>
               <button type="button" id="clearFilters" class="filter innerButtonFilter">Limpiar</button>
           </form>
@@ -67,23 +98,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Función para pintar productos
   function renderProducts(filteredProducts) {
-      productsContainer.innerHTML='';
-      filteredProducts.forEach(product => {
-          const productElement = document.createElement('div');
-          productElement.className = 'product';
-          productElement.innerHTML = `
-              <div class="image-container">
-                <img src="${product.image}" alt="${product.name}">
-              </div>
-              <p id="cardBrandText">${product.brand}</p>
-              <div id="detailsCard">
-                <p>${product.name}</p>
-                <p>${product.price.toFixed(2)} €</p>
-              </div>
-              <button>Comprar</button>
-          `;
-          productsContainer.appendChild(productElement);
-      });
+    filteredProducts.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'product';
+        productElement.innerHTML = `
+            <div class="image-container">
+            <img src="${product.image}" alt="${product.name}">
+            </div>
+            <p id="cardBrandText">${product.brand}</p>
+            <div id="detailsCard">
+            <p>${product.name}</p>
+            <p>${product.price.toFixed(2)} €</p>
+            </div>
+            <button>Comprar</button>
+        `;
+        productsContainer.appendChild(productElement);
+    });
   }
 
   // Función para aplicar filtros
@@ -94,17 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
       let filteredProducts = products;
 
       if (brand !== 'all') {
-          filteredProducts = filteredProducts.filter(product => product.brand === brand);
+        filteredProducts = filteredProducts.filter(product => product.brand === brand);
       }
 
       if (!isNaN(price)) {
-          filteredProducts = filteredProducts.filter(product => product.price <= price);
+        filteredProducts = filteredProducts.filter(product => product.price <= price);
       }
-
+      productsContainer.innerHTML='';
+      priceFilter.classList.remove('priceFilterError');
       if (filteredProducts.length === 0) {
-          renderSuggestedProducts();
+        priceFilter.classList.add('priceFilterError');
+        renderSuggestedProducts();
       } else {
-          renderProducts(filteredProducts);
+        if(divSuggestedProducts){
+            divSuggestedProducts.innerHTML='';
+        }
+        renderProducts(filteredProducts);
       }
   }
 
@@ -112,14 +147,30 @@ document.addEventListener('DOMContentLoaded', () => {
   function clearFilters() {
       brandFilter.value = 'all';
       priceFilter.value = '';
+      productsContainer.innerHTML='';
+      if (divSuggestedProducts) {
+        divSuggestedProducts.innerHTML = '';
+      }
+      priceFilter.classList.remove('priceFilterError');
       renderProducts(products);
   }
 
   // Función para mostrar productos sugeridos
   function renderSuggestedProducts() {
-      productsContainer.innerHTML = '<p>No se encontraron productos con los filtros aplicados. Productos sugeridos:</p>';
-      const suggestedProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
-      renderProducts(suggestedProducts);
+    
+    if (!divSuggestedProducts) {
+        divSuggestedProducts = document.createElement('div');
+        divSuggestedProducts.className = 'divSuggestedProducts';
+        divSuggestedProducts.innerHTML = `<p id="suggestedProductsComment">No se encontraron productos con los filtros aplicados. Productos sugeridos:</p>`;
+        
+        const referenceNode = document.getElementById('filterButtonDiv');
+        referenceNode.parentNode.insertBefore(divSuggestedProducts, referenceNode.nextSibling);
+    }
+
+    divSuggestedProducts.innerHTML = `<p id="suggestedProductsComment">No se encontraron productos con los filtros aplicados. Productos sugeridos:</p>`;
+
+    const suggestedProducts = products.sort(() => 0.5 - Math.random()).slice(0, 3);
+    renderProducts(suggestedProducts);
   }
 
   filterButton.addEventListener('click', function() {
@@ -144,5 +195,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Pintar productos inicialmente
   renderProducts(products);
+
+  const footerMenu = document.querySelector('#footerMenu');
+  footerMenu.innerHTML = `
+  <ul>
+    <li>
+    <h4>Compra con JD</h4>
+    </li>
+    <li>
+    <a href="#">Guía de tallas</a>
+    </li>
+    <li>
+    <a href="#">Buscador de tallas</a>
+    </li>
+    <li>
+    <a href="#">Descuento estudiantes</a>
+    </li>
+    <li>
+    <a href="#">Calendario lanzamientos</a>
+    </li>
+    <li>
+    <a href="#">Inscribite a JDX</a>
+    </li>
+    <li>
+    <a href="#">JD Blog</a>
+    </li>
+  </ul>
+  <ul>
+    <li>
+    <h4>Atención al cliente</h4>
+    </li>
+    <li>
+    <a href="#">Preguntas frecuentes</a>
+    </li>
+    <li>
+    <a href="#">Envíos y devoluciones</a>
+    </li>
+    <li>
+    <a href="#">Seguimiento de envío</a>
+    </li>
+    <li>
+    <a href="#">Contacto</a>
+    </li>
+  </ul>
+  <ul>
+    <li>
+    <h4>Aviso legal</h4>
+    </li>
+    <li>
+    <a href="#">Términos y condiciones</a>
+    </li>
+    <li>
+    <a href="#">Promociones y condiciones</a>
+    </li>
+    <li>
+    <a href="#">Política de privacidad</a>
+    </li>
+    <li>
+    <a href="#">Política de Cookies</a>
+    </li>
+    <li>
+    <a href="#">Ajustes de Cookies</a>
+    </li>
+    <li>
+    <a href="#">Accesibilidad</a>
+    </li>
+  </ul>
+  `
 });
 

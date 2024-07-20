@@ -154,7 +154,6 @@ nav ul li a:hover{
 
 #filterButton {
   border: 0px;
-  background-color: var(--body-background-color);
 }
 
 #filterButton img{
@@ -197,6 +196,10 @@ nav ul li a:hover{
 
 #priceFilter{
   appearance: none;
+  text-align: center;
+}
+.priceFilterError{
+  border-color: red;
 }
 
 .innerButtonFilter{
@@ -222,6 +225,17 @@ nav ul li a:hover{
   text-align: left;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   border-radius: var(--border-radius-filters);
+}
+
+#divSuggestedProducts{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#suggestedProductsComment{
+  text-align: center;
+  margin: 30px;
 }
 
 .image-container {
